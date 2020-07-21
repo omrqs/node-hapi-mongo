@@ -1,0 +1,26 @@
+{
+  "name": "hapi-mongodb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/server.js",
+  "type": "module",
+  "scripts": {
+    "serve": "node ./index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/hapi": "^19.2.0",
+    "hapi-cors": "^1.0.3",
+    "hapi-pino": "^8.0.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.10.5",
+    "@babel/preset-env": "^7.10.4"
+  },
+  "_moduleAliases": {
+    "Routes": "./src/routes",
+    "Controllers": "./src/controllers"
+  }
+}
