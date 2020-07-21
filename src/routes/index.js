@@ -1,7 +1,11 @@
-exports.plugin = {
-  name: process.env.APP_NAME,
+import main from "./main.js";
+
+const plugin = {
+  name: process.env.APP_NAME || "example",
   version: "0.1.0",
-  async register(server) {
-    server.route(require("Routes/main"));
+  register: async function register (server) {
+    server.route(main);
   },
 };
+
+export default plugin;

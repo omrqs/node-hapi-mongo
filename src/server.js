@@ -1,7 +1,7 @@
 import Hapi from '@hapi/hapi';
 import HapiCors from "hapi-cors";
 import HapiPino from "hapi-pino";
-import routes from "./routes";
+import Routes from "./routes/index.js";
 
 const server = new Hapi.Server({
   host: process.env.SERVER_HOST || "0.0.0.0",
@@ -11,7 +11,7 @@ const server = new Hapi.Server({
 
 const init = async () => {
   await server.register({
-    plugin: routes,
+    plugin: Routes
   });
 
   await server.register({

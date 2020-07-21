@@ -1,7 +1,7 @@
 class Main {
   async index() {
     return {
-      message: `welcome to '${process.env.APP_NAME}'@'${process.env.NODE_ENV}' environment`,
+      message: `welcome to '${process.env.APP_NAME}@${process.env.NODE_ENV}' environment`,
     };
   }
 }
