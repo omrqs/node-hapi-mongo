@@ -1,7 +1,12 @@
+import dotenv from "dotenv";
 import Hapi from '@hapi/hapi';
 import HapiCors from "hapi-cors";
 import HapiPino from "hapi-pino";
 import Routes from "./routes/index.js";
+
+dotenv.config({
+  path: process.env.NODE_ENV === "test" ? ".env.test" : ".env",
+});
 
 const server = new Hapi.Server({
   host: process.env.SERVER_HOST || "0.0.0.0",
@@ -32,8 +37,6 @@ const init = async () => {
   });
 
   await server.start();
-
-  console.info(`Server running at: ${server.info.uri}`);
 };
 
 // enable error handler log only production.
@@ -44,4 +47,6 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-export default init();
+init();
+
+export default server;
