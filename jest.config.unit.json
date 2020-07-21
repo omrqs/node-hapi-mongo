@@ -1,0 +1,4 @@
+{
+  "verbose": true,
+  "testMatch": ["**/__tests__/**/(*.)+(unit).[jt]s?(x)"]
+}

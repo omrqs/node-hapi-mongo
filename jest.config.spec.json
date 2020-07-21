@@ -1,0 +1,4 @@
+{
+  "verbose": true,
+  "testMatch": ["**/__tests__/**/(*.)+(spec).[jt]s?(x)"]
+}
