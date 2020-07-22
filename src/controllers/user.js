@@ -4,7 +4,9 @@ import Joi from '@hapi/joi';
 
 class User {
   async index (req, h) {
-    return Model.find().lean().exec();
+    const user = Model.find().lean().exec();
+    
+    return h.response({ user });
   }
 
   async new (req, h) {
@@ -17,80 +19,61 @@ class User {
         .takeover();
     }
 
-    return new Promise(resolve => {
-      Model.create(req.payload, (err, user) => {
-        if (err) {
-          resolve(
-            h.response({
-              status: 500,
-              message: err
-            })
-            .code(500));
-        }
+    return Model.create(req.payload, (err, user) => {
+      if (err) {
+        return h.response({ message: err }).code(500).takeover();;
+      }
 
-        resolve(
-          h.response({
-            statusCode: 201, 
-            message: 'User created.', 
-            document: user
-          })
-          .code(201));
+      return h.response({
+        message: 'Document created.', 
+        user
       })
-    })
+    });
   }
 
   async show (req, h) {
-    let doc = await Model.findById(req.params.id);
+    let user = await Model.findById(req.params.id);
 
-    if (doc === null) {
+    if (user === null) {
       return h.response({
-        statusCode: 404,
-        error: "Document not found.",
         message: "The id doesn't exist in the database."
       })
-      .code(404);
+      .code(404)
+      .takeover();
     }
 
-    return doc;
+    return h.response({ user });
   }
 
   async update (req, h) {
     const { error } = UserSchema.validate(req.payload);
     if (error) {
-      return h.response({
-        message: error.details
-        })
+      return h.response({ message: error.details })
         .code(400)
         .takeover();
     }
 
-    let doc = await Model.findByIdAndUpdate(req.params.id, req.payload, { new: true });
+    let user = await Model.findByIdAndUpdate(req.params.id, req.payload, { new: true });
 
-    if (doc === null) {
+    if (user === null) {
       return h.response({
-        statusCode: 404,
-        error: "Document not found.",
         message: "The id doesn't exist in the database."
       })
-      .code(404);
+      .code(404)
+      .takeover();
     }
 
-    return doc;
+    return h.response({ user });
   }
   
   async delete (req, h) {
-    let doc = await Model.findByIdAndDelete(req.params.id).lean().exec();
+    let user = await Model.findByIdAndDelete(req.params.id).lean().exec();
 
-    if (doc === null) {
-      return h.response({
-        statusCode: 404,
-        error: "Document not found.",
-        message: "The id doesn't exist in the database."
-      })
-      .code(404);
+    if (user === null) {
+      return h.response({ message: "The id doesn't exist in the database." }).code(404);
     }
 
-    return doc;
+    return h.response({});
   }
 }
 
