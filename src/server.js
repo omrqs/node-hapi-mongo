@@ -1,15 +1,15 @@
-import dotenv from "dotenv";
+import dotenv from 'dotenv';
 import Hapi from '@hapi/hapi';
-import HapiCors from "hapi-cors";
-import HapiPino from "hapi-pino";
-import Routes from "./routes/index.js";
+import HapiCors from 'hapi-cors';
+import HapiPino from 'hapi-pino';
+import Routes from './routes/index.js';
 
 dotenv.config({
-  path: process.env.NODE_ENV === "test" ? ".env.test" : ".env",
+  path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env',
 });
 
 const server = new Hapi.Server({
-  host: process.env.SERVER_HOST || "0.0.0.0",
+  host: process.env.SERVER_HOST || '0.0.0.0',
   port: process.env.SERVER_PORT || 8000,
   router: { stripTrailingSlash: true },
 });
@@ -22,9 +22,9 @@ const init = async () => {
   await server.register({
     plugin: HapiCors,
     options: {
-      origins: ["*"],
-      allowCredentials: "true",
-      methods: ["GET", "POST", "OPTIONS", "HEAD", "PUT", "DELETE", "PATCH"],
+      origins: ['*'],
+      allowCredentials: 'true',
+      methods: ['GET', 'POST', 'OPTIONS', 'HEAD', 'PUT', 'DELETE', 'PATCH'],
     },
   });
 
@@ -32,7 +32,7 @@ const init = async () => {
     plugin: HapiPino,
     options: {
       prettyPrint: true,
-      logEvents: ["response", "onPostStart"],
+      logEvents: ['response', 'onPostStart'],
     },
   });
 
@@ -40,8 +40,8 @@ const init = async () => {
 };
 
 // enable error handler log only production.
-if (process.env.NODE_ENV === "production") {
-  process.on("unhandledRejection", (err) => {
+if (process.env.NODE_ENV === 'production') {
+  process.on('unhandledRejection', (err) => {
     console.log(err);
     process.exit(1);
   });

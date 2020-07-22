@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "setup": "cp .env.dist .env",
-    "serve": "node ./index.js",
+    "serve": "nodemon ./src/server.js",
     "lint": "eslint --fix --ignore-path .gitignore .",
     "test:spec": "jest -c jest.config.spec.json --forceExit --detectOpenHandles",
     "test:unit": "jest -c jest.config.unit.json --forceExit --detectOpenHandles",
@@ -26,6 +26,7 @@
   "license": "ISC",
   "dependencies": {
     "@hapi/hapi": "^19.2.0",
+    "@hapi/joi": "^17.1.1",
     "hapi-cors": "^1.0.3",
     "hapi-pino": "^8.0.1"
   },
@@ -36,10 +37,11 @@
     "babel-eslint": "^10.1.0",
     "dotenv-webpack": "^2.0.0",
     "eslint": "^7.5.0",
-    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-jest": "^23.18.0",
     "husky": "^4.2.5",
-    "jest": "^26.1.0"
+    "jest": "^26.1.0",
+    "nodemon": "^2.0.4"
   },
   "_moduleAliases": {
     "~": "./",
