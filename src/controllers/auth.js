@@ -11,7 +11,9 @@ class Auth {
 
     return h.response({
       message: `logged`,
-    }).state("session", {
+    })
+    .code(201)
+    .state("session", {
       email: email
     });
   }
