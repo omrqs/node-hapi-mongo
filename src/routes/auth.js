@@ -1,14 +1,14 @@
-import controller from './../controllers/auth.js';
+import Controller from './../controllers/auth.js';
 
 export default [
   {
     method: 'POST',
     path: '/login',
-    handler: controller.login,
+    handler: Controller.login,
   },
   {
     method: 'GET',
     path: '/logout',
-    handler: controller.logout,
+    handler: Controller.logout,
   },
 ];

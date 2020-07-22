@@ -1,9 +1,9 @@
-import controller from './../controllers/main.js';
+import Controller from './../controllers/main.js';
 
 export default [
   {
     method: 'GET',
     path: '/',
-    handler: controller.index,
+    handler: Controller.index,
   },
 ];

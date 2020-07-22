@@ -1,10 +1,10 @@
-import dotenv from 'dotenv';
+import Dotenv from 'dotenv';
 import Hapi from '@hapi/hapi';
 import HapiCors from 'hapi-cors';
 import HapiPino from 'hapi-pino';
 import Routes from './routes/index.js';
 
-dotenv.config({
+Dotenv.config({
   path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env',
 });
 
