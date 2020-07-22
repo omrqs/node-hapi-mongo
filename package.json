@@ -13,6 +13,15 @@
     "test:coverage": "jest --coverage --forceExit --detectOpenHandles",
     "test:watch": "jest --watch"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "eslint --fix --ignore-path .gitignore ."
+    }
+  },
+  "keywords": [
+    "api",
+    "example"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -24,10 +33,12 @@
     "@babel/core": "^7.10.5",
     "@babel/plugin-transform-runtime": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
+    "babel-eslint": "^10.1.0",
     "dotenv-webpack": "^2.0.0",
     "eslint": "^7.5.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-jest": "^23.18.0",
+    "husky": "^4.2.5",
     "jest": "^26.1.0"
   },
   "_moduleAliases": {
