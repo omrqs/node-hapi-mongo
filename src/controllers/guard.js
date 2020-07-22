@@ -20,4 +20,4 @@ class Guard {
 
 const guard = new Guard();
 
-module.exports = guard;
+export default guard;

@@ -3,7 +3,7 @@ import Bcrypt from 'bcrypt';
 
 const SALT_LEVEL = 10;
 
-const UserSchema = new Db.schema({
+const UserSchema = Db.schema({
   email: { type: String, required: true },
   password: { type: String, required: true }
 }, { versionKey: false, timestamps: true })
