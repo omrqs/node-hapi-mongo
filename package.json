@@ -28,7 +28,8 @@
     "@hapi/hapi": "^19.2.0",
     "@hapi/joi": "^17.1.1",
     "hapi-cors": "^1.0.3",
-    "hapi-pino": "^8.0.1"
+    "hapi-pino": "^8.0.1",
+    "mongoose": "^5.9.25"
   },
   "devDependencies": {
     "@babel/core": "^7.10.5",
