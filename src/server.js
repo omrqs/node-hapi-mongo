@@ -36,6 +36,15 @@ const init = async () => {
     },
   });
 
+  server.state('session', {
+    ttl: null,
+    isSecure: false,
+    isHttpOnly: true,
+    encoding: 'base64json',
+    clearInvalid: true,
+    strictHeader: true
+  });
+
   await server.start();
 };
 
