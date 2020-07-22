@@ -25,7 +25,8 @@ services:
       - example
     command: node_modules/.bin/nodemon app.js
   db:
-    image: mongo:4.1.8-xenial
+    # image: mongo:4.1.8-xenial
+    image: mongo:4.2.8-bionic
     container_name: db
     restart: unless-stopped
     env_file: .env
