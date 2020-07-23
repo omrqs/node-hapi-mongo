@@ -9,50 +9,50 @@ const UserSchema = Db.schema({
 }, { versionKey: false, timestamps: true })
 
 
-// Hash the password before store it
-UserSchema.pre('save', (next) => {
-  if (!this.isModified('password')) {
-    return next();
-  }
+// // Hash the password before store it
+// UserSchema.pre('save', (next) => {
+//   if (!this.isModified('password')) {
+//     return next();
+//   }
 
-  Bcrypt.genSalt(SALT_LEVEL, function(err, salt) {
-    if (err) {
-      return next(err);
-    }
+//   Bcrypt.genSalt(SALT_LEVEL, (err, salt) => {
+//     if (err) {
+//       return next(err);
+//     }
 
-    Bcrypt.hash(this.password, salt, function(err, hash) {
-      if (err) {
-        return next(err);
-      }
+//     Bcrypt.hash(this.password, salt, (err, hash) => {
+//       if (err) {
+//         return next(err);
+//       }
 
-      this.password = hash;
+//       this.password = hash;
       
-      next();
-    })
-  })
-})
+//       next();
+//     })
+//   })
+// });
 
-UserSchema.pre('updateOne', (next) => {
-  if (!Object.prototype.hasOwnProperty.call(this._update['$set'], 'password')) {
-    return next();
-  }
+// UserSchema.pre('updateOne', (next) => {
+//   if (!Object.prototype.hasOwnProperty.call(this._update['$set'], 'password')) {
+//     return next();
+//   }
 
-  Bcrypt.genSalt(SALT_LEVEL, (err, salt) => {
-    if (err) {
-      return next(err);
-    }
+//   Bcrypt.genSalt(SALT_LEVEL, (err, salt) => {
+//     if (err) {
+//       return next(err);
+//     }
 
-    Bcrypt.hash(this._update['$set'].password, salt, (err, hash) => {
-      if (err) {
-        return next(err);
-      }
+//     Bcrypt.hash(this._update['$set'].password, salt, (err, hash) => {
+//       if (err) {
+//         return next(err);
+//       }
 
-      this._update['$set'].password = hash;
+//       this._update['$set'].password = hash;
       
-      next();
-    })
-  })
-})
+//       next();
+//     })
+//   })
+// });
 
 UserSchema.methods.comparePwd = async (triedPwd, cb) => {
   return Bcrypt.compare(triedPwd, this.password).then(res => {
