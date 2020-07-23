@@ -22,8 +22,12 @@
     "api",
     "example"
   ],
-  "author": "",
+  "author": "@omrqs",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:omrqs/example-node-hapi-mongo.git"
+  },
   "dependencies": {
     "@hapi/hapi": "^19.2.0",
     "@hapi/joi": "^17.1.1",

@@ -5,12 +5,12 @@ class Db {
     const {
       MONGO_USERNAME,
       MONGO_PASSWORD,
-      MONGO_HOST,
+      MONGO_HOSTNAME,
       MONGO_PORT,
       MONGO_DB
     } = process.env;
     
-    const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOST}:${MONGO_PORT}/${MONGO_DB}`;
+    const url = `mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@${MONGO_HOSTNAME}:${MONGO_PORT}/${MONGO_DB}?authSource=admin`;
 
     Mongoose.connect(url, {
       retryWrites: true,
@@ -18,9 +18,12 @@ class Db {
       reconnectTries: Number.MAX_VALUE,
       reconnectInterval: 500,
       connectTimeoutMS: 10000,
+      useFindAndModify: false
+    }).then(() => {
+      console.log('MongoDB is connected');
+    }).catch( function(err) {
+      console.log(err);
     });
-
-    Mongoose.set('useFindAndModify', false);
   }
 
   init() {
