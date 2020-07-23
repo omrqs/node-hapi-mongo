@@ -1,4 +1,4 @@
-import LoginSchema from './../schemes/login.js';
+import LoginSchema from './../schemes/auth/login.js';
 
 class Auth {
   async login(req, h) {

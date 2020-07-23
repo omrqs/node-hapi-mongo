@@ -1,4 +1,4 @@
-import TokenSchema from './../schemes/token.js';
+import TokenSchema from './../schemes/auth/token.js';
 import Joi from '@hapi/joi';
 
 class Guard {
