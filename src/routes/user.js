@@ -7,7 +7,7 @@ export default [
     path: '/users',
     handler: Controller.index,
     config: {
-      pre: [{ method: Guard.cookie, assign: "guard" }],
+      pre: [{ method: Guard.token, assign: "guard" }]
     }
   },
   {
@@ -15,7 +15,7 @@ export default [
     path: '/users',
     handler: Controller.new,
     config: {
-      pre: [{ method: Guard.cookie, assign: "guard" }],
+      pre: [{ method: Guard.token, assign: "guard" }]
     }
   },
   {
@@ -23,7 +23,7 @@ export default [
     path: '/users/{id}',
     handler: Controller.show,
     config: {
-      pre: [{ method: Guard.cookie, assign: "guard" }],
+      pre: [{ method: Guard.token, assign: "guard" }]
     }
   },
   {
@@ -31,15 +31,15 @@ export default [
     path: '/users/{id}',
     handler: Controller.update,
     config: {
-      pre: [{ method: Guard.cookie, assign: "guard" }],
+      pre: [{ method: Guard.token, assign: "guard" }]
     }
   },
   {
-    method: 'PUT',
-    path: '/users/{id}',
+    method: 'POST',
+    path: '/users/change-password',
     handler: Controller.changePassword,
     config: {
-      pre: [{ method: Guard.cookie, assign: "guard" }],
+      pre: [{ method: Guard.token, assign: "guard" }]
     }
   },
   {
@@ -47,7 +47,7 @@ export default [
     path: '/users/{id}',
     handler: Controller.delete,
     config: {
-      pre: [{ method: Guard.cookie, assign: "guard" }],
+      pre: [{ method: Guard.token, assign: "guard" }]
     }
   },
 ];
