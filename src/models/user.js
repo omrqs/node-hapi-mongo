@@ -1,68 +1,42 @@
 import Db from './../libs/mongodb.js';
-import Bcrypt from 'bcrypt';
+import Bcrypt from 'bcryptjs';
 
-const SALT_LEVEL = 10;
+const SALT_LEVEL = 12;
 
 const UserSchema = Db.schema({
-  email: { type: String, required: true },
-  password: { type: String, required: true }
+  fullname: { type: String },
+  email: { type: String, required: true, unique: true, index: true },
+  password: { type: String, required: true },
+  token: { type: String, unique: true, index: true }
 }, { versionKey: false, timestamps: true })
 
+UserSchema.pre('save', function (next) {
+  if (!this.isModified('password')) {
+    return next();
+  }
 
-// // Hash the password before store it
-// UserSchema.pre('save', (next) => {
-//   if (!this.isModified('password')) {
-//     return next();
-//   }
+  this.token = Bcrypt.genSaltSync(SALT_LEVEL);
+  this.password = Bcrypt.hashSync(this.password, SALT_LEVEL);
 
-//   Bcrypt.genSalt(SALT_LEVEL, (err, salt) => {
-//     if (err) {
-//       return next(err);
-//     }
+  next();
+});
 
-//     Bcrypt.hash(this.password, salt, (err, hash) => {
-//       if (err) {
-//         return next(err);
-//       }
+UserSchema.methods.toJson = async function () {
+  return {
+    id: this._id,
+    fullname: this.fullname,
+    email: this.email
+  };
+};
 
-//       this.password = hash;
-      
-//       next();
-//     })
-//   })
-// });
+UserSchema.methods.comparePwd = async function (password) {
+  // return password === this.password;
+  return Bcrypt.compare(password, this.password).then(res => res);
+};
 
-// UserSchema.pre('updateOne', (next) => {
-//   if (!Object.prototype.hasOwnProperty.call(this._update['$set'], 'password')) {
-//     return next();
-//   }
-
-//   Bcrypt.genSalt(SALT_LEVEL, (err, salt) => {
-//     if (err) {
-//       return next(err);
-//     }
-
-//     Bcrypt.hash(this._update['$set'].password, salt, (err, hash) => {
-//       if (err) {
-//         return next(err);
-//       }
-
-//       this._update['$set'].password = hash;
-      
-//       next();
-//     })
-//   })
-// });
-
-UserSchema.methods.comparePwd = async (triedPwd, cb) => {
-  return Bcrypt.compare(triedPwd, this.password).then(res => {
-    return res;
-  });
-}
-
-UserSchema.statics.findOneByUsername = async (email, cb) => {
+UserSchema.statics.findOneByUsername = async function (email) {
   return this.findOne({ email: email });
-}
+};
 
 const model = Db.instance.model('User', UserSchema);
 
