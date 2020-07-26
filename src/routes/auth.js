@@ -1,4 +1,5 @@
 import Controller from './../controllers/auth.js';
+import Guard from './../controllers/guard.js';
 
 export default [
   {
@@ -10,5 +11,8 @@ export default [
     method: 'GET',
     path: '/logout',
     handler: Controller.logout,
+    config: {
+      pre: [{ method: Guard.token, assign: "guard" }]
+    }
   },
 ];
