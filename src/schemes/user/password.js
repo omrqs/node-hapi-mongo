@@ -1,5 +1,8 @@
 import Joi from '@hapi/joi';
 
+const pattern = new RegExp('^[a-zA-Z0-9]{3,30}$');
+
 export default Joi.object({
-  password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).required()
+  current_password: Joi.string().pattern(pattern).required(),
+  new_password: Joi.string().pattern(pattern).required()
 });
