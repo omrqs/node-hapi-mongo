@@ -35,6 +35,14 @@ export default [
     }
   },
   {
+    method: 'PUT',
+    path: '/users/{id}',
+    handler: Controller.changePassword,
+    config: {
+      pre: [{ method: Guard.cookie, assign: "guard" }],
+    }
+  },
+  {
     method: 'DELETE',
     path: '/users/{id}',
     handler: Controller.delete,
