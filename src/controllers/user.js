@@ -6,11 +6,22 @@ import Joi from '@hapi/joi';
 
 class User {
   async index (req, h) {
-    return Model.find().lean().exec()
+    const page = req.query.page || 0;
+    const limit = req.query.limit || 25;
+    const sort = req.query.sort || {};
+
+    return Model.find()
+      .sort(sort).skip(page).limit(limit)
+      .lean().exec()
       .then(users => {
+        // let users = resp.map(user => {
+        //   return user.toJson();
+        // });
+        
         return h.response({ users });
       })
       .catch(err => {
+        console.log(err);
         return h.response({ message: err }).code(500);
       });
   }
@@ -49,7 +60,7 @@ class User {
       return h.response({ message: error.details }).code(400);
     }
 
-    return Model.findByIdAndUpdate(req.params.id, req.payload, { new: true })
+    return Model.findByIdAndUpdate(req.params.id, req.payload)
     .then(async (user) => {
       return h.response({
         message: "Document was updated.",
@@ -59,7 +70,6 @@ class User {
     .catch(err => {
       return h.response({ message: "The id doesn't exist in the database." }).code(404);
     });
-
   }
   
   async changePassword (req, h) {
@@ -68,17 +78,30 @@ class User {
       return h.response({ message: error.details }).code(400);
     }
 
-    return Model.findByIdAndUpdate(req.params.id, req.payload, { new: true })
-    .then(async (user) => {
-      return h.response({
-        message: "Password was updated.",
-        user: await user.toJson()
-      });
-    })
-    .catch(err => {
-      return h.response({ message: "The id doesn't exist in the database." }).code(404);
-    });
+    const { current_password, new_password } = req.payload;
+    const sessionCookie = req.state.session || "";
+    const { id } = sessionCookie;
 
+    return Model.findById(id)
+      .then(async (user) => {
+        const checkPwd = await user.comparePwd(current_password);
+        
+        if (checkPwd) {
+          return Model.findByIdAndUpdate(id, { password: user.encryptPwd(new_password) })
+            .then(async (user) => {
+              return h.response({ message: `password was changed` }).state("session", await user.toJson());
+            })
+            .catch(err => {
+              return h.response({ message: err }).code(404);
+            });
+        }
+
+        return h.response({ message: "Invalid current password." }).code(401);
+      })
+      .catch(err => {
+        console.log(err);
+        return h.response({ message: err }).code(500);
+      });
   }
   
   async delete (req, h) {
