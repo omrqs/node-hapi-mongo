@@ -1,5 +1,8 @@
 import Controller from './../controllers/user.js';
 import Guard from './../controllers/guard.js';
+import NewSchema from './../schemes/user/new.js';
+import UpdateSchema from './../schemes/user/update.js';
+import PasswordSchema from './../schemes/user/password.js';
 
 export default [
   {
@@ -15,7 +18,10 @@ export default [
     path: '/users',
     handler: Controller.new,
     config: {
-      pre: [{ method: Guard.token, assign: "guard" }]
+      pre: [{ method: Guard.token, assign: "guard" }],
+      validate: {
+        payload: NewSchema
+      }
     }
   },
   {
@@ -31,7 +37,10 @@ export default [
     path: '/users/{id}',
     handler: Controller.update,
     config: {
-      pre: [{ method: Guard.token, assign: "guard" }]
+      pre: [{ method: Guard.token, assign: "guard" }],
+      validate: {
+        payload: UpdateSchema
+      }
     }
   },
   {
@@ -39,7 +48,10 @@ export default [
     path: '/users/change-password',
     handler: Controller.changePassword,
     config: {
-      pre: [{ method: Guard.token, assign: "guard" }]
+      pre: [{ method: Guard.token, assign: "guard" }],
+      validate: {
+        payload: PasswordSchema
+      }
     }
   },
   {

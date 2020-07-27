@@ -1,6 +1,3 @@
-import NewSchema from './../schemes/user/new.js';
-import UpdateSchema from './../schemes/user/update.js';
-import PasswordSchema from './../schemes/user/password.js';
 import Model from './../models/user.js';
 
 class User {
@@ -13,10 +10,6 @@ class User {
       .sort(sort).skip(page).limit(limit)
       .lean().exec()
       .then(users => {
-        // let users = resp.map(user => {
-        //   return user.toJson();
-        // });
-        
         return h.response({ users });
       })
       .catch(err => {
@@ -25,11 +18,6 @@ class User {
   }
 
   async new (req, h) {
-    const { error } = NewSchema.validate(req.payload);
-    if (error) {
-      return h.response({ message: error.details }).code(400);
-    }
-
     return Model.create(req.payload)
       .then(async (user) => {
         return h.response({
@@ -53,11 +41,6 @@ class User {
   }
 
   async update (req, h) {
-    const { error } = UpdateSchema.validate(req.payload);
-    if (error) {
-      return h.response({ message: error.details }).code(400);
-    }
-
     return Model.findByIdAndUpdate(req.params.id, req.payload)
     .then(async (user) => {
       return h.response({
@@ -71,11 +54,6 @@ class User {
   }
   
   async changePassword (req, h) {
-    const { error } = PasswordSchema.validate(req.payload);
-    if (error) {
-      return h.response({ message: error.details }).code(400);
-    }
-
     const { current_password, new_password } = req.payload;
     const sessionCookie = req.state.session || "";
     const { id } = sessionCookie;

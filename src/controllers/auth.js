@@ -1,13 +1,7 @@
-import LoginSchema from './../schemes/auth/login.js';
 import Model from './../models/user.js';
 
 class Auth {
   async login(req, h) {
-    const { error } = LoginSchema.validate(req.payload);
-    if (error) {
-      return h.response({ message: error.details }).code(400);
-    }
-
     const { email, password } = req.payload;
 
     return Model.findOneByUsername(email)
