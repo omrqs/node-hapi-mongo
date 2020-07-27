@@ -33,7 +33,7 @@ UserSchema.methods.toJson = async function () {
 };
 
 UserSchema.methods.encryptPwd = function (password) {
-  return Bcrypt.hashSync(this.password, SALT_LEVEL);
+  return Bcrypt.hashSync(password, SALT_LEVEL);
 };
 
 UserSchema.methods.comparePwd = async function (password) {

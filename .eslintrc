@@ -1,11 +1,12 @@
 {
   "env": {
+    "node": true,
+    "commonjs": true,
     "es6": true,
     "jest/globals": true
   },
   "extends": [
-    "eslint:recommended",
-    "plugin:jest/all"
+    "eslint:recommended"
   ],
   "globals": {
     "Atomics": "readonly",

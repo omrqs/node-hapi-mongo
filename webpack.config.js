@@ -1,9 +1,8 @@
 import Dotenv from 'dotenv-webpack';
 import npmPackage from 'package.json';
  
-export default = {
+export default {
   resolve: {
-    root: __dirname,
     alias: npmPackage._moduleAliases || {},
   },
   plugins: [

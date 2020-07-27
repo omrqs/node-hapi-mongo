@@ -19,4 +19,4 @@ afterAll((done) => {
   server.stop();
 });
 
-describe("API helper", () => Main(server));
+describe("aPI helper", () => Main(server));

@@ -1,6 +1,6 @@
 const describer = (server) => {
-  describe("Main endpoint (healthy checker).", () => {
-    test("should success to request index API", async (done) => {
+  describe("main endpoint (healthy checker).", () => {
+    it("should success to request index API", async (done) => {
       try {
         const options = {
           method: "GET",
@@ -11,9 +11,9 @@ const describer = (server) => {
         expect(data.statusCode).toBe(200);
         expect(data.result).toHaveProperty("message");
 
-        done();
+        return done();
       } catch (err) {
-        done(err);
+        return done(err);
       }
     });
   });

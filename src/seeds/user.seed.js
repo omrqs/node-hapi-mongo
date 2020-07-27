@@ -22,9 +22,8 @@ class UserSeed {
         .then(async (user) => {
           console.info(`user ${user.fullname} was created`);
         })
-        .catch(err => {
-          console.log(err);
-          console.error(`failed to save user ${user.fullname}`);
+        .catch(() => {
+          console.error(`failed to save user ${entry.fullname}`);
         });
     });
   }
@@ -35,10 +34,10 @@ class UserSeed {
 
       if (user) {
         return Model.findByIdAndDelete(user.id).lean().exec()
-          .then(user => {
+          .then(() => {
             console.info(`user ${entry.fullname} was deleted`);
           })
-          .catch(err => {
+          .catch(() => {
             console.error(`failed to delete user ${entry.fullname}`);
           });
       }

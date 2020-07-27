@@ -27,7 +27,6 @@ class Auth {
         return h.response({ message: "Invalid credentials." }).code(401);
       })
       .catch(err => {
-        console.log("err", err);
         return h.response({ err: err.getMessage() }).code(500);
       });
   }

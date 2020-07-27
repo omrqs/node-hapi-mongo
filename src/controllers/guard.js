@@ -1,5 +1,4 @@
 import Model from './../models/user.js';
-import Joi from '@hapi/joi';
 
 class Guard {
   async cookie(req, h) {

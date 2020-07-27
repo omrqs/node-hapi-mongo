@@ -2,7 +2,6 @@ import NewSchema from './../schemes/user/new.js';
 import UpdateSchema from './../schemes/user/update.js';
 import PasswordSchema from './../schemes/user/password.js';
 import Model from './../models/user.js';
-import Joi from '@hapi/joi';
 
 class User {
   async index (req, h) {
@@ -21,7 +20,6 @@ class User {
         return h.response({ users });
       })
       .catch(err => {
-        console.log(err);
         return h.response({ message: err }).code(500);
       });
   }
@@ -49,7 +47,7 @@ class User {
       .then(async (user) => {
         return h.response({ user: await user.toJson() });
       })
-      .catch(err => {
+      .catch(() => {
         return h.response({ message: "The id doesn't exist in the database." }).code(404);
       })
   }
@@ -67,7 +65,7 @@ class User {
         user: await user.toJson()
       });
     })
-    .catch(err => {
+    .catch(() => {
       return h.response({ message: "The id doesn't exist in the database." }).code(404);
     });
   }
@@ -99,7 +97,6 @@ class User {
         return h.response({ message: "Invalid current password." }).code(401);
       })
       .catch(err => {
-        console.log(err);
         return h.response({ message: err }).code(500);
       });
   }
@@ -113,7 +110,7 @@ class User {
 
         return h.response({ message: 'Document was removed.' });
       })
-      .catch(err => {
+      .catch(() => {
         return h.response({ message: "The id doesn't exist in the database." }).code(404);
       });
   }
