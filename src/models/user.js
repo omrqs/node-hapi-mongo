@@ -1,5 +1,6 @@
 import Db from './../libs/mongodb.js';
 import Bcrypt from 'bcryptjs';
+import Hat from 'hat';
 
 const SALT_LEVEL = 12;
 
@@ -17,7 +18,7 @@ UserSchema.pre('save', function (next) {
   }
 
   this.roles = ["ROLE_USER"];
-  this.token = Bcrypt.genSaltSync(SALT_LEVEL);
+  this.token = Hat();
   this.password = Bcrypt.hashSync(this.password, SALT_LEVEL);
 
   next();

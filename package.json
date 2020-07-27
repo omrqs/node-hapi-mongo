@@ -34,6 +34,7 @@
     "bcryptjs": "^2.4.3",
     "hapi-cors": "^1.0.3",
     "hapi-pino": "^8.0.1",
+    "hat": "0.0.3",
     "mongoose": "^5.9.25"
   },
   "devDependencies": {
