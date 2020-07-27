@@ -1,11 +1,16 @@
-import server from "./../../src/server.js";
-import Main from "./controllers/Main.describe.js";
+import Server from './../../src/server.js';
+import SeedUp from './../../src/seeds/tearUp.js';
+import SeedDown from './../../src/seeds/tearDown.js';
+import Main from './controllers/Main.describe.js';
+import Auth from './controllers/Auth.describe.js';
 
 // Start application before running the test case
 beforeAll((done) => {
-  server.events.on("start", () => {
+  Server.events.on('start', () => {
     done();
   });
+
+  SeedUp();
 });
 
 // Called before each test.
@@ -13,10 +18,13 @@ beforeEach(() => {});
 
 // Stop application after running the test case
 afterAll((done) => {
-  server.events.on("stop", () => {
+  Server.events.on("stop", () => {
     done();
   });
-  server.stop();
+  Server.stop();
+
+  SeedDown();
 });
 
-describe("aPI helper", () => Main(server));
+describe("API helper", () => Main(Server));
+describe("API Auth", () => Auth(Server));

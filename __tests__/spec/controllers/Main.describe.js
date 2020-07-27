@@ -11,9 +11,9 @@ const describer = (server) => {
         expect(data.statusCode).toBe(200);
         expect(data.result).toHaveProperty("message");
 
-        return done();
+        done();
       } catch (err) {
-        return done(err);
+        done(err);
       }
     });
   });

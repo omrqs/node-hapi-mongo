@@ -1,7 +1,9 @@
 import User from './user.seed.js';
 
 const up = async () => {
-  await User.tearUp()
+  await User.tearUp();
 };
 
 up();
+
+export default up;

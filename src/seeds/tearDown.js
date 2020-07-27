@@ -5,3 +5,5 @@ const down = async () => {
 };
 
 down();
+
+export default down;
