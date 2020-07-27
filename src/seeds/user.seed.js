@@ -6,12 +6,12 @@ class UserSeed {
       {
         fullname: "First User",
         email: "first@user.io",
-        password: "first user"
+        password: "firstuser"
       },
       {
         fullname: "Second User",
         email: "second@user.io",
-        password: "second user"
+        password: "seconduser"
       }
     ];
   }
