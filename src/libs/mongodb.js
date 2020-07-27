@@ -33,7 +33,7 @@ class Db {
   }
 
   disconnect() {
-    this.connection.disconnect();
+    this.instance.disconnect();
   }
 }
 
