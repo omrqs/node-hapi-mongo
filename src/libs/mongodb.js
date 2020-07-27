@@ -14,11 +14,11 @@ class Db {
 
     Mongoose.connect(url, {
       retryWrites: true,
+      useCreateIndex: true,
       useNewUrlParser: true,
-      reconnectTries: Number.MAX_VALUE,
-      reconnectInterval: 500,
       connectTimeoutMS: 10000,
-      useFindAndModify: false
+      useUnifiedTopology: true,
+      useFindAndModify: true
     }).then(() => {
       console.log('MongoDB is connected');
     }).catch( function(err) {
@@ -30,6 +30,10 @@ class Db {
     this.instance = Mongoose;
     this.connection = Mongoose.connection;
     this.schema = Mongoose.Schema;
+  }
+
+  disconnect() {
+    this.connection.disconnect();
   }
 }
 
