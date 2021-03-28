@@ -31,7 +31,7 @@
     "url": "git+ssh://git@github.com:omrqs/example-node-hapi-mongo.git"
   },
   "dependencies": {
-    "@hapi/hapi": "^19.2.0",
+    "@hapi/hapi": "^20.1.2",
     "@hapi/joi": "^17.1.1",
     "bcryptjs": "^2.4.3",
     "hapi-cors": "^1.0.3",
